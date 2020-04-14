@@ -5,8 +5,8 @@ Distribute processes over SSH.
 ## `distribute`
 
 Each line on the `stdin` is added to a queue of commands that will be executed by the machines given in the command line arguments.
-The commands are automatically executed with `nice -n 19`, `ionice`, and *in the same directory* (thus this assumes a shared file structure).
-The script also ensures that the target machine has at least 5 GB of free memory and 4 free CPU cores. Otherwise, the machine is not used until it is freed.
+The commands are automatically executed with `nice -n 19`, `ionice`, and *in the same directory* as the controlling `distribute` script (this assumes that the computers running `distribute` and the one being `ssh`'d to share the same directory structure).
+The script also ensures that the target machine has at least 5 GB of free memory and 4 free CPU cores. Otherwise, the machine is not used (the script checks every <5min if it has been freed).
 
 ## Sample usage
 
@@ -36,7 +36,7 @@ The output is printed to `stdout` of the `distribute` process (use `command | di
 
 Communicate with a running `distribute` script to get the current status, pause processes, kill subprocesses, etc. Use 
 ```distribute-query help```
-for list of available commands.
+for list of available commands. 
 
 # For ATP
 
